@@ -1,0 +1,12 @@
+#center_block {
+    position: absolute;
+    left: 50%;
+    margin-left:-400px;
+    width: 800px;
+    height: 100px;
+}
+
+a{
+  color:red;
+  visited:red;
+}

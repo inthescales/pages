@@ -1,0 +1,13 @@
+.column {
+    padding: 0px 25% 20px;
+    min-width: 500px;
+}
+
+.column-inner {
+    padding: 24px 5% 0px;
+    min-width: 300px;
+}
+
+.details {
+    font-style: italic;
+}

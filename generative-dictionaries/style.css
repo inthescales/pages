@@ -1,3 +1,13 @@
+body {
+    background-color: 092644;
+    color: fcd988;
+    font-size: 13pt;
+}
+
+a {
+    color: fc9d19;
+}
+
 .column {
     padding: 0px 25% 20px;
     min-width: 500px;
@@ -8,6 +18,39 @@
     min-width: 300px;
 }
 
+.divider {
+    background-color: fcd988;
+    height: 1px;
+    width: 300px;
+    margin: 20px auto 30px;
+}
+
+.entry {
+    margin-bottom: 40px;
+}
+
 .details {
     font-style: italic;
+}
+
+div.title h2 {
+   margin-bottom: 0px;
+}
+
+div.example-images {
+    margin-bottom: 30px;
+}
+
+div.example-images img {
+
+    height: 160px;
+    margin-right: 24px;
+    object-fit: contain;
+    border: #fc9d19 solid 3px;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
 }

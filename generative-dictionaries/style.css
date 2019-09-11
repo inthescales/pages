@@ -18,6 +18,13 @@ a {
     min-width: 300px;
 }
 
+.last-updated {
+    text-align: right;
+    font-style: italic;
+    font-size: 12pt;
+    margin-right: 5px;
+}
+
 .divider {
     background-color: fcd988;
     height: 1px;

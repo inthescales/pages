@@ -1,0 +1,152 @@
+<head>
+    <meta charset="utf-8">
+    <title>Bone-Nine Name Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="/jquery-1.11.2.min.js"></script>
+    <script src="tracery.min.js"></script>
+</head>
+
+<script>
+    
+var banned = ["ecrophil"];
+
+var firstname_grammar = {
+        "dont-care": ["#male#", "#female#", "#other#"],
+        "male": ["#[short-ending:us][long-ending:us]latin-body#",
+                 "#[short-ending:us][long-ending:us]latin-body#",
+                 "#[short-ending:us][long-ending:us]latin-body#",
+                 "#[short-ending:os][long-ending:os]greek-body#"],
+        "female": ["#[short-ending:a][long-ending:a]latin-body#",
+                   "#[short-ending:a][long-ending:a]latin-body#",
+                   "#[short-ending:a][long-ending:a]latin-body#",
+                   "#[short-ending:a][long-ending:ia]greek-body#"],
+        "other": ["#[short-ending:um][long-ending:um]latin-body#",
+                  "#[short-ending:um][long-ending:um]latin-body#",
+                  "#[short-ending:um][long-ending:um]latin-body#",
+                  "#[short-ending:on][long-ending:on]greek-body#"],
+        "latin-body": ["#latin-root##long-ending#",
+                       "#latin-root##[ending:#short-ending#]latin-middle#"],
+        "greek-body": ["#greek-root##long-ending#",
+                       "#greek-root##[ending:#short-ending#]greek-middle#"],
+        "latin-middle": ["ari#ending#", "ari#ending#", "os#ending#", "imort#ending#", "issim#ending#", "ifer"],
+        "greek-middle": ["ic#ending#", "ic#ending#", "arch#ending#", "odor#ending#", "ophil#ending#", "ophor#ending#"],
+        "bone-name": ["calcane", "coccyge", "clavicul", "femur", "fibul", "humer", "ili", "ischi", "occipit", "pariet", "patell", "pelv", "phalange", "lunat", "mandibul", "malle", "maxill", "palatin", "perdit", "radi", "sacr", "scapul", "stern", "tal", "tars", "tibi", "trapezi", "uln", "vertebr"],
+        "latin-root": ["#bone-name#", "#bone-name#", "#bone-name#", "#bone-name#", "#bone-name#", "corv", "crani", "cruci", "falci", "fat", "funebri", "lachrym", "lament", "lect", "mort", "mortici", "noct", "obscur", "ossu", "pulv", "sacr", "sepulchr", "tenebr", "termin", "tomb", "urn", "vel"],
+        "greek-root": ["crani", "crypt", "mausol", "moir", "necr", "nyct", "oste", "sarcophag", "taph", "thanat", "threnodi"]
+};
+
+var lastname_grammar = {
+    "name": ["#latin-name#", "#latin-name#", "#latin-name#", "#latin-name#", "#latin-name#", "#latin-name#", "#latin-name#", "#latin-name#", "#greek-name#"],
+    "latin-terminal": ["a", "us", "um", "alis"],
+    "greek-terminal": ["a", "os", "on"],
+    "latin-ending": ["#latin-terminal#", "#latin-terminal#", "#latin-terminal#", "#latin-terminal#", "#latin-terminal#", "#latin-terminal#", "#latin-terminal#", "ari#latin-terminal#", "issim#latin-terminal#"],
+    "greek-ending": ["#greek-terminal#", "ic#greek-terminal#"],
+    "latin-root": ["non", "non#ending#", "nones", "nones#ending#", "nonet", "novem", "novemfid", "novum", "noven#ending#", "novenni#ending#", "novendi#ending#", "nonilli#ending#", "nonal#ending#", "noni#ending#", "nonagesi#ending#", "nonagint#ending#", "nongent#ending#", "nongen#ending#", "nonos#ending#", "novembr#ending#", "nonagon#ending#", "noncupul#ending#", "nonupul#ending#", "nonat#ending#"],
+    "greek-root": ["enn", "enne#ending#", "enneacont#ending#", "enneagon#ending#", "enneahedr#ending#", "ennearch#ending#", "ennead#ending#", "enneat#ending#", "enneater#ending#", "ennealog#ending#", "enneastyl#ending#"],
+    "latin-name": ["#[ending:#latin-ending#]latin-root#"],
+    "greek-name": ["#[ending:#greek-ending#]greek-root#"]
+};
+
+function capitalized(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+function cleanup(word) {
+    var cleaned = word;
+    cleaned = cleaned.replace("ii", "i");
+    //cleaned = cleaned.replace("ei", "i"); // keep "enneica"
+    cleaned = cleaned.replace("mim", "m");
+    cleaned = cleaned.replace("moiria", "moira");
+    return cleaned
+}
+
+function getGender() {
+    var genderButtons = document.getElementsByName("gender");
+    for (var i = 0; i < genderButtons.length; i++) {
+        if (genderButtons[i].checked) return genderButtons[i].value;
+    }
+    return 'dont-care';
+}
+    
+function generateName(gender) {
+    var input = "#dont-care#"
+
+    switch(gender) {
+        case "male":
+            input = "#male#";
+            break;
+        case "female":
+            input = "#female#";
+            break;
+        case "other":
+            input = "#other#";
+            break;
+        case "dont-care":
+            input = "#dont-care#"
+            break;
+    }
+
+    var firstname_grammar_obj = tracery.createGrammar(firstname_grammar);
+    var lastname_grammar_obj = tracery.createGrammar(lastname_grammar);
+    var firstname = capitalized(cleanup(firstname_grammar_obj.flatten(input)));
+    var lastname = capitalized(cleanup(lastname_grammar_obj.flatten("#name#")));
+
+    return firstname + " " + lastname;
+}
+
+function validate(name) {
+    if (name == "") {
+        return false;
+    }
+    
+    for (i = 0; i < banned.length; ++i) {
+        if (name.includes(banned[i])) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+    
+function setName(newName) {
+    document.getElementById('name-label').innerHTML = newName;
+    document.getElementById('name-label').hidden = false;
+    document.getElementById('intro-label').hidden = false;
+}
+    
+function buttonClicked() {
+    var gender = getGender();
+    var generated = "";
+
+    while (!validate(generated)) {
+        generated = generateName(gender);
+    }
+    setName(generated);
+}
+    
+</script>
+
+<body>
+    <div class="column">
+        <h1>Bone-Nine Name Generator</h1>
+        <form id="gender-form">
+            Gender: &nbsp;&nbsp;
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label> &nbsp;&nbsp;
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label> &nbsp;&nbsp;
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">Other</label> &nbsp;&nbsp;
+            <input type="radio" id="dont-care" name="gender" value="dont-care" checked=true>
+            <label for="dont-care">Don't Care</label> 
+        </form>
+        <br>
+        <button class="generate-button" onclick="buttonClicked();">What's my name?</button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a id="intro-label" hidden=true>Your name is:</a>
+        <h2 class="name" id="name-label" hidden=true>SOME NAME</h2>
+    </div>
+</body>

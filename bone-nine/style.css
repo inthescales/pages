@@ -1,0 +1,35 @@
+body {
+    background-color: 14141f;
+    color: ffffe6;
+    font-size: 13pt;
+    
+    text-align: center;
+}
+
+button {
+    background-color: 14141f;
+    color: ffffe6;
+    padding: 4px 12px;
+    border: 2px solid ffffe6;
+}
+
+h1 {
+    font-size: 40pt;
+}
+
+h2 {
+    font-size: 36pt;
+}
+
+.column {
+    padding: 0px 25% 20px;
+    min-width: 500px;
+}
+
+.generate-button {
+    font-size:15pt;
+}
+
+h2.name {
+    margin-top: 8px;
+}

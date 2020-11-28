@@ -8,12 +8,24 @@ a {
     color: #FF4500;
 }
 
-.linkbox > a {
-    color: #C81394;
-}
-
 p {
     line-height: 1.25;
+}
+
+.divider {
+    margin: 32px auto;
+    background-color: white;
+    height: 1px;
+    width: 300px;
+}
+
+.dingbat {
+    text-align: center;   
+}
+
+.slidetable td {
+    padding: 12px;
+    width: 50%;
 }
 
 img.slide {
@@ -31,8 +43,4 @@ img.slide {
 .column-inner {
     padding: 24px 5% 0px;
     min-width: 300px;
-}
-
-.linkbox {
-    text-align: center;
 }

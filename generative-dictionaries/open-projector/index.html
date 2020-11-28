@@ -19,13 +19,212 @@
                 <h1>Generative Dictionaries: Open Projector Talk</h1>
             </header>
             <p>
-                The following is a textual reproduction and slide deck of an open mic lightning talk I gave about different generative dictionary projects and techniques
+                The following is a textual reproduction of an open mic lightning talk I gave about different generative dictionary projects and techniques, along with the slides I used for it.
                 <br><br>
                 The original talk was given on November 19, 2020 at <a href="https://toddwords.com/wordhack/">WordHack</a>, via <a href="https://www.babycastles.com/">Babycastles</a>.
             </p>
-            <p class="linkbox">
-                <a href="/pages/generative-dictionaries/open-projector/1.html">start the show >></a>
-            </p>
+            <div class="divider"></div>
+            <table class="slidetable">
+                <tr id="row1">
+                    <td>
+                        <p>
+                            Hello everyone! My name is Robin Hill.
+                            <br><br>
+                            Today I’m going to talk about generative dictionaries – programs that generate dictionary entries, with words and meanings.
+                            <br><br>
+                            A few years ago I made one called <a href="/projects/lyres-dictionary/">Lyre’s Dictionary</a> in the form of a Twitter bot, and afterward I did some searching online to find similar projects that other people had done.
+                            <br><br>
+                            I found a few interesting things that I want to talk about! People have taken different approaches to this, and I’ll describe a few.
+                        </p>
+                    </td> 
+                    <td>
+                        <a href="/pages/generative-dictionaries/open-projector/images/open-projector-1.png">
+                            <img class="slide" src="/pages/generative-dictionaries/open-projector/iimages/open-projector-1.png">
+                        </a>
+                    </td>
+                </tr>
+                <tr><td><p class="dingbat">—</p></td></tr>
+                <tr id="row2">
+                    <td>
+                        <p>
+                            The most common approach in the projects I’ve seen is using neural networks.
+                            <br><br>
+                            I won’t go into the details of how these work since I’m by no means an expert and it’s not that important.
+                            <br><br>
+                            One thing that’s attractive about them as a tool is that they can be applied to different tasks without being adapted much. So someone doesn’t have to really create a whole system for making words or definitions, they just take this general purpose tool, feed it real dictionary entries, and it will try to copy them.
+                            <br><br>
+                            These examples are from <a href="https://www.thomasdimson.com/">Thomas Dimson</a>’s <a href="https://www.thisworddoesnotexist.com/">This Word Does Not Exist</a>.
+                        </p>
+                    </td> 
+                    <td>
+                        <a href="/pages/generative-dictionaries/open-projector/images/open-projector-2.png">
+                            <img class="slide" src="/pages/generative-dictionaries/open-projector/iimages/open-projector-2.png">
+                        </a>
+                    </td>
+                </tr>
+                <tr><td><p class="dingbat">—</p></td></tr>
+                <tr id="row3">
+                    <td>
+                        <p>
+                            So taking a closer look at one of these, we can see that they can produce some good looking results, including some extra flourishes like pronunciation and example sentences. But sometimes the definitions are a little garbled, since there’s not an internal structure of meaning behind them. They’re fundamentally imitative, adding letters and words together to try to make things that resemble what you fed into it.
+                        </p>
+                    </td> 
+                    <td>
+                        <a href="/pages/generative-dictionaries/open-projector/images/open-projector-3.png">
+                            <img class="slide" src="/pages/generative-dictionaries/open-projector/iimages/open-projector-3.png">
+                        </a>
+                    </td>
+                </tr>
+                <tr><td><p class="dingbat">—</p></td></tr>                
+                <tr id="row4">
+                    <td>
+                        <p>
+                            So a different approach is to build words and definitions up out of smaller discrete elements.
+                            <br><br>
+                            This example is from my bot, Lyre’s Dictionary. It came out of a love of etymology, so I was very interested in the particular parts of words and how they fit together.
+                            <br><br>
+                            The building blocks here are roughly equivalent to what in linguistics are called 'morphemes' – indivisible units of meaning that make up a word: roots, suffixes, etc.
+                            <br><br>
+                            The goal is to combine the components we see in actual English and see what else we could make with them. Procedural generation is sometimes described as exploring a possibility space; here, it’s the possibility space of the history of the English language.
+                        </p>
+                    </td> 
+                    <td>
+                        <a href="/pages/generative-dictionaries/open-projector/images/open-projector-4.png">
+                            <img class="slide" src="/pages/generative-dictionaries/open-projector/iimages/open-projector-4.png">
+                        </a>
+                        <br>
+                        <a href="/pages/generative-dictionaries/open-projector/images/open-projector-5.png">
+                            <img class="slide" src="/pages/generative-dictionaries/open-projector/iimages/open-projector-5.png">
+                        </a>
+                    </td>
+                </tr>
+                <tr><td><p class="dingbat">—</p></td></tr>
+                <tr id="row5">
+                    <td>
+                        <p>
+                            Let’s look at another example of this type: <a href="http://www.fantasticvocab.com/">Fantastic Vocab</a> by <a href="http://www.gregborenstein.com/">Greg Borenstein</a>
+                            <br><br>
+                            The unit here is also existing English word components, but they're combined in a more free-form way, corresponding less tightly to historical patterns.
+                            <br><br>
+                            So the sensibility is a little different here; while they’re less “plausible” in a sense, combining with fewer restrictions increases the number of possibilities.
+                        </p>
+                    </td>
+                    <td>
+                        <a href="/pages/generative-dictionaries/open-projector/images/open-projector-6.png">
+                            <img class="slide" src="/pages/generative-dictionaries/open-projector/iimages/open-projector-6.png">
+                        </a>
+                        <br>
+                        <a href="/pages/generative-dictionaries/open-projector/images/open-projector-7.png">
+                            <img class="slide" src="/pages/generative-dictionaries/open-projector/iimages/open-projector-7.png">
+                        </a>
+                    </td>
+                </tr>
+                <tr><td><p class="dingbat">—</p></td></tr>
+                <tr id="row6">
+                    <td>
+                        <p>
+                            One advantage of working with etymological units is that they are often recognizable. So here we have a few words that all have the “trans-“ prefix, meaning "across", and some with the “ject” root, which comes from a Latin word meaning “to throw”.
+                            <br><br>
+                            If we create a new word using these elements, “transject”, it has the advantage of resembling these existing words, and so you might have some intuition about its meaning – to throw across.
+                            <br><br>
+                            Here, etymology aids comprehension.
+                        </p>
+                    </td>
+                    <td>
+                        <a href="/pages/generative-dictionaries/open-projector/images/open-projector-9.png">
+                            <img class="slide" src="/pages/generative-dictionaries/open-projector/iimages/open-projector-9.png">
+                        </a>
+                        <br><br>
+                        <a href="/pages/generative-dictionaries/open-projector/images/open-projector-10.png">
+                            <img class="slide" src="/pages/generative-dictionaries/open-projector/iimages/open-projector-10.png">
+                        </a>
+                    </td>
+                </tr>
+                <tr><td><p class="dingbat">—</p></td></tr>
+                <tr id="row7">
+                    <td>
+                        <p>
+                            Now let's look at a different example.
+                            <br><br>
+                            There is a Latin word "frangere", meaning to break or shatter, which is the ancestor of several modern English words, including "refract" and "frangible", a not-so-common word meaning "able to be broken".
+                            <br><br>
+                            If we wanted to create a word that means "able to be refracted", strictly following historical patterns would give us "refrangible". But if we said "refractable" instead, it would be more widely understood, since it looks more like other words people know.
+                            <br><br>
+                            So here, etymology hurts comprehension.
+                        </p>
+                    </td>
+                    <td>
+                        <a href="/pages/generative-dictionaries/open-projector/images/open-projector-12.png">
+                            <img class="slide" src="/pages/generative-dictionaries/open-projector/iimages/open-projector-12.png">
+                        </a>
+                        <br><br>
+                        <a href="/pages/generative-dictionaries/open-projector/images/open-projector-13.png">
+                            <img class="slide" src="/pages/generative-dictionaries/open-projector/iimages/open-projector-13.png">
+                        </a>
+                    </td>
+                </tr>
+                <tr><td><p class="dingbat">—</p></td></tr>
+                <tr id="row8">
+                    <td>
+                        <p>
+                            Let’s look at one more technique. This example comes from <a href="https://twitter.com/PowerVocabTweet">Power Vocab Tweet</a> by <a href="http://www.decontextualize.com/">Allison Parrish</a>.
+                            <br><br>
+                            The definitions here are generated using Markov chains, which like neural nets recombine existing material, but one interesting product of the way this approach works is that it sometimes “welds” together two existing definitions, joining them at a point where they share a word or phrase.
+                        </p>
+                    </td>
+                    <td>
+                        <a href="/pages/generative-dictionaries/open-projector/images/open-projector-14.png">
+                            <img class="slide" src="/pages/generative-dictionaries/open-projector/iimages/open-projector-14.png">
+                        </a>
+                    </td>
+                </tr>
+                <tr><td><p class="dingbat">—</p></td></tr>
+                <tr id="row9">
+                    <td>
+                        <p>
+                            Doing some searching, I think I found the real dictionary entries that were combined to make this example (or at least plausible candidates).
+                        </p>
+                    </td>
+                    <td>
+                        <a href="/pages/generative-dictionaries/open-projector/images/open-projector-15.png">
+                            <img class="slide" src="/pages/generative-dictionaries/open-projector/iimages/open-projector-15.png">
+                        </a>
+                    </td>
+                </tr>
+                <tr><td><p class="dingbat">—</p></td></tr>
+                <tr id="row10">
+                    <td>
+                        <p>
+                            So if we look at the two phrases being combined, each one is a meaningful but not quite completed idea. We have the idea of “A European goose that’s smaller than something”, and “something that is smaller than the common garden nasturtium. And that “smaller than” comparison is a place where they’re joined into a new, whole idea.
+                        </p>
+                    </td>
+                    <td>
+                        <a href="/pages/generative-dictionaries/open-projector/images/open-projector-16.png">
+                            <img class="slide" src="/pages/generative-dictionaries/open-projector/iimages/open-projector-16.png">
+                        </a>
+                    </td>
+                </tr>
+                <tr><td><p class="dingbat">—</p></td></tr>
+                <tr id="row11">
+                    <td>
+                        <p>
+                            So that’s about all I have time for here. You can read the full list on my web site, at <a href="http://www.inthescales.com/pages/generative-dictionaries/">this link</a>.
+                            <br><br>
+                            My bot Lyre’s Dictionary is an ongoing project which I hope to continue working on, and you can follow it at the <a href="https://twitter.com/lyresdictionary">Twitter</a> and <a href="botsin.space/lyresdictionary">Mastodon</a> links.
+                            <br><br>
+                            And you can contact me and see other things I’ve made on <a href="/">my web site</a> and on <a href="https://twitter.com/inthescales">Twitter</a>. Feel free to reach out if you want to talk about generating dictionaries!
+                            <br><br>
+                            Thank you so much!
+                        </p>
+                    </td>
+                    <td>
+                        <a href="/pages/generative-dictionaries/open-projector/images/open-projector-17.png">
+                            <img class="slide" src="/pages/generative-dictionaries/open-projector/iimages/open-projector-17.png">
+                        </a>
+                    </td>
+                </tr>
+            </table>
+            <p class="dingbat">❖</p>
         </div>
     </body>
 </html>

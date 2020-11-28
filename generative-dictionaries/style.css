@@ -32,6 +32,13 @@ a {
     margin: 20px auto 30px;
 }
 
+.even-divider {
+    background-color: fcd988;
+    height: 1px;
+    width: 300px;
+    margin: 30px auto 30px;
+}
+
 .entry {
     margin-bottom: 40px;
 }

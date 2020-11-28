@@ -1,0 +1,38 @@
+body {
+    color: white;
+    background-color: #0D0013;
+    font-size: 13pt;
+}
+
+a {
+    color: #FF4500;
+}
+
+.linkbox > a {
+    color: #C81394;
+}
+
+p {
+    line-height: 1.25;
+}
+
+img.slide {
+    max-width: 100%; 
+    border-color: #FF4500;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.column {
+    padding: 0px 25% 20px;
+    min-width: 500px;
+}
+
+.column-inner {
+    padding: 24px 5% 0px;
+    min-width: 300px;
+}
+
+.linkbox {
+    text-align: center;
+}

@@ -1,0 +1,249 @@
+<html>
+	<head>
+		<title>English Spelling System Designer</title>
+		<link rel="stylesheet" href="style.css">
+		<script type="module">
+			import { convert, clearConversion } from "./convert.js";
+			import { selectTab, populateSelect, didSelect, getSelectedID, addRow, removeRow } from "./elements.js";
+			import { ifCustomIsValid, customize, getCustom, clearCustom } from "./custom.js"
+			import { systemWithID } from "./state.js"
+			import { exportSystem, importSystem } from "./transport.js"
+			import { eggs } from "./secrets/secrets.js"
+
+			// Navigation
+			globalThis.selectTab = selectTab
+
+			// State
+			globalThis.systemWithID = systemWithID
+
+			// Preset select
+			globalThis.didSelect = didSelect
+			globalThis.getSelectedID = getSelectedID
+			globalThis.customize = customize
+
+			// Custom interface
+			globalThis.ifCustomIsValid = ifCustomIsValid
+			globalThis.getCustom = getCustom
+			globalThis.clearCustom = clearCustom
+			globalThis.exportSystem = exportSystem
+			globalThis.importSystem = importSystem
+
+			globalThis.convert = convert
+			globalThis.clearConversion = clearConversion
+
+			// Exception rows
+			globalThis.addRow = addRow
+			globalThis.removeRow = removeRow
+
+			// Secrets
+			globalThis.eggs = eggs
+
+			populateSelect("system-select")
+		</script>
+	</head>
+	<body>
+		<div id="column" class="column">
+			<div class="tab-bar">
+			  <button class="tab-button active" id="presetsButton" onclick="selectTab(event, 'presets', true)">Presets</button>
+			  <button class="tab-button" id="customButton" onclick="selectTab(event, 'custom', true)">Custom</button>
+			  <button class="tab-button" id="aboutButton" onclick="selectTab(event, 'about', false)">About</button>
+			</div>
+			<div id="presets" class="tab-content">
+				<select id="system-select" style="width: 200px;" onchange="didSelect(systemWithID(getSelectedID('system-select')))"></select>
+				<button id="customize" onclick="customize(systemWithID(getSelectedID('system-select'))); selectTab(event, 'custom', true)">customize</button>
+				<p id="preset-description">...</p>
+				<div class="divider"></div>
+				<div class="button-row">
+					<button id="convert" onclick="convert(systemWithID(getSelectedID('system-select')), 'presets-conversion')">convert</button>
+					<button id="clear" onclick="clearConversion('presets-conversion')">clear</button>
+				</div>
+				<div id="presets-conversion" class="conversion">
+					<div class="conversion-table">
+						<textarea class="conversion-input" placeholder="Enter text here..."></textarea>
+						<div class="conversion-output-container">
+							<p class="conversion-output"></p>
+							<p class="conversion-output-placeholder">...and conversion will appear here</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="custom" class="tab-content" style="display: none">
+				<div class="custom-info">
+					<div class="button-row">
+						<button onclick="importSystem()">import</button>
+						<button onclick="exportSystem(getCustom())">export</button>
+						<button onclick="clearCustom()">clear</button>
+					</div>
+					<input type="text" id="system-name" placeholder="System Name"><br>
+					<textarea id="system-description" placeholder="System description"></textarea>
+				</div>
+				<!-- Custom graphs -->
+				<div class="label-group">
+					<span class="section-label">sounds</span>
+					<div class="question-circle">
+						<span class="tooltip">The sound made by the highlighted letters in the example words will be represented by the characters you enter here.</span>
+					</div>
+				</div>
+				<table class=graphTable>
+					<tr>
+						<td><input id="ae" type="text" class="graph">tr<b><u>a</u></b>p</td>
+						<td><input id="aa" type="text" class="graph">p<b><u>a</u></b>lm</td>
+						<td><input id="ei" type="text" class="graph">f<b><u>a</u></b>ce</td>
+						<td><input id="schwa" type="text" class="graph">comm<b><u>a</u></b></td>
+
+						<td><input id="p" type="text" class="graph"><b><u>p</u></b>eel</td>
+						<td><input id="t" type="text" class="graph"><b><u>t</u></b>urn</td>
+						<td><input id="k" type="text" class="graph"><b><u>k</u></b>iss</td>
+						<td><input id="ch" type="text" class="graph"><b><u>ch</u></b>eer</td>
+					</tr>
+					<tr>
+						<td><input id="e" type="text" class="graph">dr<b><u>e</u></b>ss</td>
+						<td><input id="aw" type="text" class="graph">th<b><u>ou</u></b>ght</td>
+						<td><input id="ai" type="text" class="graph">pr<b><u>i</u></b>ce</td>
+						<td><input id="schwar" type="text" class="graph">lett<b><u>er</u></b></td>
+
+						<td><input id="b" type="text" class="graph"><b><u>b</u></b>are</td>
+						<td><input id="d" type="text" class="graph"><b><u>d</u></b>oze</td>
+						<td><input id="g" type="text" class="graph"><b><u>g</u></b>o</td>
+						<td><input id="j" type="text" class="graph"><b><u>j</u></b>aw</td>
+					</tr>
+					<tr>
+						<td><input id="ih" type="text" class="graph">k<b><u>i</u></b>t</td>
+						<td><input id="oo" type="text" class="graph">g<b><u>oo</u></b>se</td>
+						<td><input id="oi" type="text" class="graph">ch<b><u>oi</u></b>ce</td>
+						<td></td>
+
+						<td><input id="f" type="text" class="graph"><b><u>f</u></b>ine</td>
+						<td><input id="s" type="text" class="graph"><b><u>s</u></b>ee</td>
+						<td><input id="th" type="text" class="graph"><b><u>th</u></b>igh</td>
+						<td><input id="sh" type="text" class="graph"><b><u>sh</u></b>oe</td>
+					</tr>
+					<tr>
+						<td><input id="uh" type="text" class="graph">str<b><u>u</u></b>t</td>
+						<td><input id="ee" type="text" class="graph">fl<b><u>ee</u></b>ce</td>
+						<td><input id="oa" type="text" class="graph">g<b><u>oa</u></b>t</td>
+						<td></td>
+
+						<td><input id="v" type="text" class="graph"><b><u>v</u></b>ine</td>
+						<td><input id="z" type="text" class="graph"><b><u>z</u></b>oo</td>
+						<td><input id="dh" type="text" class="graph"><b><u>th</u></b>ese</td>
+						<td><input id="zh" type="text" class="graph">bei<b><u>ge</u></b></td>
+					</tr>
+					<tr>
+						<td><input id="er" type="text" class="graph">n<b><u>ur</u></b>se</td>
+						<td></td>
+						<td><input id="au" type="text" class="graph">m<b><u>ou</u></b>th</td>
+						<td></td>
+
+						<td><input id="h" type="text" class="graph"><b><u>h</u></b>arp</td>
+						<td><input id="m" type="text" class="graph"><b><u>m</u></b>ean</td>
+						<td><input id="n" type="text" class="graph"><b><u>n</u></b>ear</td>
+						<td><input id="ng" type="text" class="graph">ha<b><u>ng</u></b></td>
+					</tr>
+					<tr>
+						<td><input id="horseshoe" type="text" class="graph">f<b><u>oo</u></b>t</td>
+						<td></td>
+						<td></td>
+						<td></td>
+
+						<td><input id="l" type="text" class="graph"><b><u>l</u></b>ook</td>
+						<td><input id="r" type="text" class="graph"><b><u>r</u></b>oad</td>
+						<td><input id="w" type="text" class="graph"><b><u>w</u></b>eak</td>
+						<td><input id="y" type="text" class="graph"><b><u>y</u></b>ear</td>
+					</tr>
+				</table>
+				<!-- Exception -->
+				<div class="label-group">
+					<span class="section-label">exceptions</span>
+				</div>
+				<div class="addable-row">
+					<div class="row-addable" id="ligature-container">
+						<div class="ligature-pair" id="template" style="display: none;">
+							<input class="ligature-field" id="target" type="text">
+							 &#8594; 
+							<input class="ligature-field" id="value" type="text">
+							<button class="x-remove" onclick="removeRow(this, 'ligature-container')"></button>
+						</div>
+						<button class="add-row" onclick="addRow('ligature-container')">+ ligature</button>
+						<div class="question-circle">
+							<span class="tooltip">Replaces any instance of one sequence of characters with another.</span>
+						</div>
+					</div>
+					<div class="row-addable" id="exception-container">
+						<div class="exception-pair" id="template" style="display: none;">
+							<input class="exception-field" id="target" type="text">
+							 &#8594; 
+							<input class="exception-field" id="value" type="text">
+							<button class="x-remove" onclick="removeRow(this, 'exception-container')"></button>
+						</div>
+						<button class="add-row" onclick="addRow('exception-container')">+ word exception</button>
+						<div class="question-circle">
+							<span class="tooltip">Converts a specific word to the form given here, instead of by sound.</span>
+						</div>
+					</div>
+				</div>
+				<!-- Custom options -->
+				<div class="label-group">
+					<span class="section-label">options</span>
+				</div>
+				<table class="optionTable">
+					<tr>
+						<td>
+						  <input type="checkbox" id="option-capitalization">
+						  <label for="option-capitalization"> Preserve capitalization</label>
+							<div class="question-circle">
+								<span class="tooltip">Attempts to match the capitalization pattern of the input text when converting words. <br><br>Note that characters outside of the Latin alphabet may not have valid capitalized forms.</span>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<div class="divider"></div>
+				<div class="button-row">
+					<button id="convert" onclick="function exec() { convert(getCustom(), 'custom-conversion') }; ifCustomIsValid(exec)">convert</button>
+					<button id="clear" onclick="clearConversion('custom-conversion')">clear</button>
+				</div>
+				<div id="custom-conversion" class="conversion">
+					<div class="conversion-table">
+						<textarea class="conversion-input" placeholder="Enter text here..."></textarea>
+						<div class="conversion-output-container">
+							<p class="conversion-output"></p>
+							<p class="conversion-output-placeholder">...and conversion will appear here</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="about" class="tab-content" style="display: none">
+				<p>
+					This is a tool for designing spelling systems for the English language.
+					You can use it to describe a system that, based on how words are pronounced, will determine how they should be spelled. You can then convert texts from the traditional spelling to your new one.
+				</p>
+				<p>
+					Some notes on its functioning:
+					<ul>
+						<li>Pronunciations are based on an American accent.</li>
+						<li>Where words are spelled the same but pronounced differently, one pronunciation is chosen arbitrarily.</li>
+						<li>Unrecognized words will appear in <span class="unknown">purple</span>.</li>
+					</ul>
+				</p>
+				<p>
+					The full source code is available <a href="https://github.com/inthescales/spellkit">here</a>.
+				</p>
+				<p>
+					I hope you will enjoy using it.
+				</p>
+				<table style="width: 100%;">
+					<tr>
+						<td>
+							<p>
+								&ndash; Robin
+							</p>
+						</td>
+						<td>
+							<div id="egg" style="float: right; width: 16px; height: 16px;" onclick="eggs()"></div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

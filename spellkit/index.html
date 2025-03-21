@@ -3,12 +3,12 @@
 		<title>English Spelling System Designer</title>
 		<link rel="stylesheet" href="style.css">
 		<script type="module">
-			import { convert, clearConversion } from "./convert.js";
-			import { selectTab, populateSelect, didSelect, getSelectedID, addRow, removeRow } from "./elements.js";
-			import { ifCustomIsValid, customize, getCustom, clearCustom } from "./custom.js"
-			import { systemWithID } from "./state.js"
-			import { exportSystem, importSystem } from "./transport.js"
-			import { eggs } from "./secrets/secrets.js"
+			import { convert, clearConversion } from "./src/convert.js";
+			import { selectTab, populateSelect, didSelect, getSelectedID, addRow, removeRow } from "./src/elements.js";
+			import { ifCustomIsValid, customize, getCustom, clearCustom } from "./src/custom.js"
+			import { systemWithID } from "./src/state.js"
+			import { exportSystem, importSystem } from "./src/transport.js"
+			import { eggs } from "./src/secrets/secrets.js"
 
 			// Navigation
 			globalThis.selectTab = selectTab
